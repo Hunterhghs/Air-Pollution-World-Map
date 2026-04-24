@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Air Pollution Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header id="header">
+            <div class="header-left">
+                <div class="logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    <h1>Air Pollution World Map</h1>
+                </div>
+                <span class="live-badge" id="liveBadge">
+                    <span class="pulse"></span> LIVE
+                </span>
+            </div>
+            <div class="header-right">
+                <div class="last-updated" id="lastUpdated">Loading data...</div>
+                <div class="layer-controls">
+                    <label class="layer-label">Pollutant:</label>
+                    <select id="layerSelect">
+                        <option value="usepa-aqi" selected>AQI (Composite)</option>
+                        <option value="usepa-pm25">PM2.5</option>
+                        <option value="usepa-pm10">PM10</option>
+                        <option value="usepa-o3">Ozone (O₃)</option>
+                        <option value="usepa-no2">NO₂</option>
+                        <option value="usepa-so2">SO₂</option>
+                        <option value="usepa-co">CO</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <div id="map"></div>
+
+        <div id="legend" class="legend">
+            <div class="legend-title">Air Quality Index (AQI)</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#009966"></span>
+                    <span>0–50 Good</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#ffde33"></span>
+                    <span>51–100 Moderate</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#ff9933"></span>
+                    <span>101–150 Unhealthy (Sensitive)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#cc0033"></span>
+                    <span>151–200 Unhealthy</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#660099"></span>
+                    <span>201–300 Very Unhealthy</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background:#7e0023"></span>
+                    <span>301+ Hazardous</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="statsPanel" class="stats-panel">
+            <div class="stat-card" id="stationsCount">
+                <div class="stat-value">—</div>
+                <div class="stat-label">Stations in View</div>
+            </div>
+            <div class="stat-card" id="avgAqi">
+                <div class="stat-value">—</div>
+                <div class="stat-label">Avg AQI in View</div>
+            </div>
+            <div class="stat-card" id="worstStation">
+                <div class="stat-value">—</div>
+                <div class="stat-label">Worst in View</div>
+            </div>
+        </div>
+
+        <div id="stationDetail" class="station-detail hidden">
+            <button class="close-btn" id="closeDetail">&times;</button>
+            <div id="detailContent"></div>
+        </div>
+
+        <div id="searchBox" class="search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search city or station..." autocomplete="off">
+            <div id="searchResults" class="search-results hidden"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
